@@ -1,0 +1,130 @@
+@import '../utils/utils.scss';
+
+.exchange {
+  //centering exchange component
+  height: 50%;
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 15%;
+  //centering items
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  @include desktop {
+    height: 70%;
+    width: 70%
+  }
+
+  @include tablets {
+    height: 90%;
+    width: 90%;
+  }
+
+  &__title {
+    @include title;
+  }
+
+  &__selections {
+    display: flex;
+    width: 100%;
+
+    @include tablets {
+      flex-direction: column;
+      margin-bottom: 30px;
+    }
+
+    &__select {
+      width: 100%;
+      margin: 40px;
+
+      @include tablets {
+        margin: 0;
+        margin-bottom: 30px
+      }
+
+      &__title {
+        @include description;
+        margin-left: 5px;
+        line-height: 100%;
+      }
+
+      &__body {
+        width: 100%;
+        @include subtitle;
+        border: 0;
+        border-bottom: solid 1px rgba(128, 128, 128, 0.5);
+      }
+
+      &__option {
+        &:hover {
+          box-shadow: 0 0 10px 100px orange inset;
+        }
+      }
+    }
+  }
+
+  &__inputs {
+    width: 100%;
+    height: 30%;
+    display: flex;
+
+    &__input {
+      margin: 0 40px 0 40px;
+      width: 50%;
+      height: 100%;
+      @include currency-input;
+      @include tablets {
+        margin: 0;
+      }
+    }
+  }
+
+  &__swap-info {
+    display: flex;
+    margin-top: 40px;
+    width: 100%;
+    height: 70px;
+
+    @include tablets {
+      flex-direction: column;
+      align-items: center
+    }
+
+    &__button {
+      width: 50%;
+      height: 60px;
+      margin: 0 120px 0 40px;
+      @include swap-button;
+
+      @include tablets {
+        margin: 0;
+        width: 100%;
+      }
+    }
+
+    &__info-block-container {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      margin-top: 30px;
+
+      @include tablets {
+        width: 100%;
+      }
+
+      &__info-block {
+
+        &__title {
+          @include description;
+          line-height: 0;
+        }
+
+        &__value {
+          @include subtitle;
+        }
+      }
+    }
+  }
+}

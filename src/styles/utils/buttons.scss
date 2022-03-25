@@ -1,3 +1,17 @@
 @import './colors.scss';
 @import './font.scss';
 
+@mixin swap-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include button-text;
+  border: 0;
+  border-radius: 20px;
+  background-color: $default-button-background;
+
+  &:hover {
+    @include default-hover;
+    background-color: orange; 
+  }
+}
