@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/sheep-app-task/static/css/main.c24b2008.css",
+    "main.css": "/sheep-app-task/static/css/main.a7c504a3.css",
     "main.js": "/sheep-app-task/static/js/main.73c46da2.js",
     "index.html": "/sheep-app-task/index.html",
-    "main.c24b2008.css.map": "/sheep-app-task/static/css/main.c24b2008.css.map",
+    "main.a7c504a3.css.map": "/sheep-app-task/static/css/main.a7c504a3.css.map",
     "main.73c46da2.js.map": "/sheep-app-task/static/js/main.73c46da2.js.map"
   },
   "entrypoints": [
-    "static/css/main.c24b2008.css",
+    "static/css/main.a7c504a3.css",
     "static/js/main.73c46da2.js"
   ]
 }
