@@ -1,1 +1,8 @@
 @import './utils/utils.scss';
+
+//set static height & width = window size
+
+.App {
+  height: 100vh;
+  width: 100vw;
+}
