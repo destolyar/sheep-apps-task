@@ -12,9 +12,9 @@ import { ToSelect } from './ToSelect'
 export const Exchange: React.FunctionComponent = () => {
   let [data, setData] = useState<Symbols[]>([{symbol: 'AEDAUD', name: 'United Arab Emirates dirham - Australian dollar '}]);
 
-  let fromSelectSymbol = useRef<string>('RUB')
-  let toSelectSymbol = useRef<string>('USD')
-
+  let fromSelectSymbol = useRef<string>('USD')
+  let toSelectSymbol = useRef<string>('BDT')
+  
   let [fromInputValue, setFromInputValue] = useState<string>('0')
   let [toInputValue, setToInputValue] = useState<string>('0')
 
@@ -35,7 +35,7 @@ export const Exchange: React.FunctionComponent = () => {
 
   let getData = async() => {
     try {
-      const symbolsResponse = await fetch("https://api.finage.co.uk/symbol-list/forex?apikey=API_KEY05HWMNDP6V5GBFB2BTXZGWO8PYLX5G0J").then(data => data.json())
+      const symbolsResponse = await fetch("https://api.finage.co.uk/symbol-list/forex?apikey=API_KEY07MOTORWLCA3B0IWTBK26H524TIL7OK6").then(data => data.json())
       setData(symbolsResponse.symbols)
       const yesterdayData = moment().subtract(1, 'day').format("YYYY-MM-DD")
 
@@ -45,15 +45,16 @@ export const Exchange: React.FunctionComponent = () => {
       const pair: string = fromSelectSymbol.current + '' + toSelectSymbol.current
 
       try {
-        const priceYesterdayResponse = await fetch(`https://api.finage.co.uk/history/ticks/forex/${pair}/${yesterdayData}?limit=1&apiKey=API_KEY05HWMNDP6V5GBFB2BTXZGWO8PYLX5G0J`).then(data => data.json())
-        const priceTodayResponse = await fetch(`https://api.finage.co.uk/last/forex/${pair}?apikey=API_KEY05HWMNDP6V5GBFB2BTXZGWO8PYLX5G0J`).then(data => data.json())
+        const priceYesterdayResponse = await fetch(`https://api.finage.co.uk/history/ticks/forex/${pair}/${yesterdayData}?limit=1&apiKey=API_KEY07MOTORWLCA3B0IWTBK26H524TIL7OK6`).then(data => data.json())
+        const priceTodayResponse = await fetch(`https://api.finage.co.uk/last/forex/${pair}?apikey=API_KEY07MOTORWLCA3B0IWTBK26H524TIL7OK6`).then(data => data.json())
         
         priceYesterday = priceYesterdayResponse.ticks[0].b
         priceToday = priceTodayResponse.bid
         setError(false)
-      } catch {
-        priceToday = 666
-        priceYesterday = 0
+      } catch (e) {
+        console.log(e)
+        priceToday = NaN
+        priceYesterday = NaN
         setError(true)
       }
 
@@ -63,6 +64,8 @@ export const Exchange: React.FunctionComponent = () => {
     } catch (e){
       console.log(e)
     }
+    console.log(fromSelectSymbol)
+    console.log(toSelectSymbol)
   };
 
   useEffect(() => {
@@ -100,8 +103,13 @@ export const Exchange: React.FunctionComponent = () => {
               <ToInput fromInputValue={fromInputValue} toInputValue={toInputValue} price={currentPrice} onChangeFromInput={onChangeFromInput} onChangeToInput={onChangeToInput}/>
             </div>
             <div className='exchange__swap-info'>
-              <button className='exchange__swap-info__button' onClick={() => {
-                
+              <button className='exchange__swap-info__button' onClick={async () => {
+                let nullVar: string = toSelectSymbol.current;
+                toSelectSymbol.current = fromSelectSymbol.current;
+                fromSelectSymbol.current = nullVar;
+                setFromInputValue('0')
+                setToInputValue('0')
+                await getData()
               }}>Swap</button>
               <div className='exchange__swap-info__info-block-container'>
                 <div className='exchange__swap-info__info-block-container__info-block'>
