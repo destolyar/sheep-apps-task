@@ -64,8 +64,6 @@ export const Exchange: React.FunctionComponent = () => {
     } catch (e){
       console.log(e)
     }
-    console.log(fromSelectSymbol)
-    console.log(toSelectSymbol)
   };
 
   useEffect(() => {

@@ -7,7 +7,7 @@ export const ToSelect: React.FunctionComponent<SelectProps> = (props) => {
   const symbolUpdate = useContext(ToSelectItem)
   const getPairInfo = useContext(DataContext)
   return(
-    <select className="exchange__selections__select__body" onChange={(e) => {
+    <select className="exchange__selections__select__body" value={symbolUpdate.current} onChange={(e) => {
       symbolUpdate.current = e.target.value
       getPairInfo()
     }}>
