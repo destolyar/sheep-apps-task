@@ -1,8 +1,18 @@
-import { SelectProps } from "../../types";
-import { Select } from "./Select";
+import { useContext } from "react"
+import { DataContext, FromSelectItem } from "../../context/context"
+import { SelectProps } from "../../types"
+
 
 export const FromSelect: React.FunctionComponent<SelectProps> = (props) => {
+  const symbolUpdate = useContext(FromSelectItem)
+  const getPairInfo = useContext(DataContext)
   return(
-    <Select symbols={props.symbols} handler={props.handler} defaultValue="RUB"/>
+    <select className="exchange__selections__select__body" onChange={(e) => {
+      symbolUpdate.current = e.target.value
+      getPairInfo()
+    }}>
+      <option className="exchange__selections__select__option" value={props.defaultValue} selected>{props.defaultValue}</option>
+      {props.symbols.map((i) => <option className="exchange__selections__select__option" value={i.toString()}>{i}</option>)}
+    </select>
   )
 }

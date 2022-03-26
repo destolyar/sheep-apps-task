@@ -5,8 +5,7 @@ export interface Symbols {
 
 export interface SelectProps {
   symbols: string[],
-  defaultValue?: string,
-  handler: (item: string) => void
+  defaultValue: string,
 }
 
 export interface InputProps {
