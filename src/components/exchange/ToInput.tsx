@@ -1,8 +1,10 @@
 import { InputProps } from "../../types";
-import { Input } from "./Input";
 
 export const ToInput: React.FunctionComponent<InputProps> = (props) => {
   return(
-    <Input inputValue={(props.price) ? (+props.inputValue * +props.price).toFixed(2).toString() : props.inputValue} handler={props.handler}/>
+    <input className="exchange__inputs__input" type="number" defaultValue={400} value={props.toInputValue} onChange={(e) => {
+      props.onChangeToInput(e.target.value)
+      props.onChangeFromInput((+e.target.value * props.price).toFixed(2).toString())
+    }}/>
   )
 }

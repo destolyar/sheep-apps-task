@@ -16,15 +16,21 @@ export const Exchange: React.FunctionComponent = () => {
   let toSelectSymbol = useRef<string>('USD')
 
   let [fromInputValue, setFromInputValue] = useState<string>('0')
+  let [toInputValue, setToInputValue] = useState<string>('0')
 
   let [currentPrice, setCurrentPrice] = useState<number>(0)
   let [priceChange, setPriceChange] = useState<number>(0)
+  let [priceChangePercent, setPriceChangePercent] = useState<number>(0)
 
   let [error, setError] = useState<boolean>(false)
   
   
   const onChangeFromInput = (item: string) => {
     setFromInputValue(fromInputValue = item)
+  }
+
+  const onChangeToInput = (item: string) => {
+    setToInputValue(toInputValue = item)
   }
 
   let getData = async() => {
@@ -52,7 +58,8 @@ export const Exchange: React.FunctionComponent = () => {
       }
 
       setCurrentPrice(priceToday)
-      setPriceChange(+(priceToday - priceYesterday).toFixed(4))
+      setPriceChange(+(priceToday - priceYesterday).toFixed(6))
+      setPriceChangePercent(+(((priceToday - priceYesterday) / priceYesterday) * 100).toFixed(2))
     } catch (e){
       console.log(e)
     }
@@ -89,19 +96,21 @@ export const Exchange: React.FunctionComponent = () => {
               </div>
             </div>
             <div className='exchange__inputs'>
-              <FromInput inputValue={fromInputValue} handler={onChangeFromInput}/>
-              <ToInput inputValue={fromInputValue} price={currentPrice}/>
+              <FromInput fromInputValue={fromInputValue} toInputValue={toInputValue} price={currentPrice} onChangeFromInput={onChangeFromInput} onChangeToInput={onChangeToInput}/>
+              <ToInput fromInputValue={fromInputValue} toInputValue={toInputValue} price={currentPrice} onChangeFromInput={onChangeFromInput} onChangeToInput={onChangeToInput}/>
             </div>
             <div className='exchange__swap-info'>
-              <button className='exchange__swap-info__button'>Swap</button>
+              <button className='exchange__swap-info__button' onClick={() => {
+                
+              }}>Swap</button>
               <div className='exchange__swap-info__info-block-container'>
                 <div className='exchange__swap-info__info-block-container__info-block'>
-                  <p className='exchange__swap-info__info-block-container__info-block__title'>Current price</p>
+                  <p className='exchange__swap-info__info-block-container__info-block__title'>Current rate</p>
                   <h2 className='exchange__swap-info__info-block-container__info-block__value'>{currentPrice}</h2>
                 </div>
                 <div className='exchange__swap-info__info-block-container__info-block'>
                   <p className='exchange__swap-info__info-block-container__info-block__title'>Today's change</p>
-                  <h2 className='exchange__swap-info__info-block-container__info-block__value' style={{color: (priceChange > 0) ? 'green' : 'red'}}>{priceChange}</h2>
+                  <h2 className='exchange__swap-info__info-block-container__info-block__value' style={{color: (priceChange > 0) ? 'green' : 'red'}}>{priceChange} ({priceChangePercent}%)</h2>
                 </div>
               </div>
             </div>

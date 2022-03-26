@@ -9,9 +9,11 @@ export interface SelectProps {
 }
 
 export interface InputProps {
-  inputValue: string,
-  handler?: (item: string) => void
-  price?: number
+  fromInputValue: string,
+  toInputValue: string,
+  onChangeFromInput: (item: string) => void,
+  onChangeToInput: (item: string) => void,
+  price: number
 }
 
 
