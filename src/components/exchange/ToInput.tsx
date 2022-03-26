@@ -3,6 +3,6 @@ import { Input } from "./Input";
 
 export const ToInput: React.FunctionComponent<InputProps> = (props) => {
   return(
-    <Input inputValue={props.inputValue} handler={props.handler}/>
+    <Input inputValue={(props.price) ? (+props.inputValue * +props.price).toFixed(2).toString() : props.inputValue} handler={props.handler}/>
   )
 }

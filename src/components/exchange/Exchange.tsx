@@ -2,21 +2,21 @@ import moment from 'moment'
 import { useEffect, useState } from 'react'
 import '../../styles/components/exchange.scss'
 import { Symbols } from '../../types'
+import { FromInput } from './FromInput'
 import { FromSelect } from './FromSelect'
-import { Input } from './Input'
+import { ToInput } from './ToInput'
 import { ToSelect } from './ToSelect'
 
 export const Exchange: React.FunctionComponent = () => {
   let [data, setData] = useState<Symbols[]>([{symbol: 'AEDAUD', name: 'United Arab Emirates dirham - Australian dollar '}]);
 
-  let [toSelectSymbol, setToSelectSymbol] = useState('USD')
-  let [fromSelectSymbol, setFromSelectSymbol] = useState('RUB')
+  let [toSelectSymbol, setToSelectSymbol] = useState<string>('USD')
+  let [fromSelectSymbol, setFromSelectSymbol] = useState<string>('RUB')
 
-  let [toInputValue, setToInputValue] = useState('0')
-  let [fromInputValue, setFromInputValue] = useState('0')
+  let [fromInputValue, setFromInputValue] = useState<string>('0')
 
-  let [currentPrice, setCurrentPrice] = useState(0)
-  let [priceChange, setPriceChange] = useState(0)
+  let [currentPrice, setCurrentPrice] = useState<number>(0)
+  let [priceChange, setPriceChange] = useState<number>(0)
 
   //Хендлеры для изменения состояния(Я знаю что эту задачу можно решить с помощью  Redux или useContext, но это показалось мне более простым решением.)
 
@@ -26,10 +26,6 @@ export const Exchange: React.FunctionComponent = () => {
 
   const onChangeFromSelect = (item:string) => {
     setFromSelectSymbol(item)
-  }
-
-  const onChangeToInput = (item: string) => {
-    setToInputValue(item)
   }
 
   const onChangeFromInput = (item: string) => {
@@ -80,8 +76,8 @@ export const Exchange: React.FunctionComponent = () => {
         </div>
       </div>
       <div className='exchange__inputs'>
-        <Input inputValue={toInputValue} handler={onChangeToInput}/>
-        <Input inputValue={fromInputValue} handler={onChangeFromInput}/>
+        <FromInput inputValue={fromInputValue} handler={onChangeFromInput}/>
+        <ToInput inputValue={fromInputValue} price={currentPrice}/>
       </div>
       <div className='exchange__swap-info'>
         <button className='exchange__swap-info__button'>Swap</button>
@@ -92,7 +88,7 @@ export const Exchange: React.FunctionComponent = () => {
           </div>
           <div className='exchange__swap-info__info-block-container__info-block'>
             <p className='exchange__swap-info__info-block-container__info-block__title'>Today's change</p>
-            <h2 className='exchange__swap-info__info-block-container__info-block__value'>{priceChange}</h2>
+            <h2 className='exchange__swap-info__info-block-container__info-block__value' style={{color: (priceChange > 0) ? 'green' : 'red'}}>{priceChange}</h2>
           </div>
         </div>
       </div>

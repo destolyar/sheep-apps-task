@@ -11,7 +11,8 @@ export interface SelectProps {
 
 export interface InputProps {
   inputValue: string,
-  handler: (item: string) => void
+  handler?: (item: string) => void
+  price?: number
 }
 
 
