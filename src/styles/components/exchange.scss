@@ -72,12 +72,17 @@
     align-items: center;
     justify-content: space-between;
 
+    @include tablets {
+      flex-direction: column;
+    }
+
     &__input {
       width: 49%;
       height: 100%;
       @include currency-input;
       @include tablets {
         margin: 0;
+        width: 100%;
       }
     }
   }
