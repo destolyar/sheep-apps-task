@@ -35,7 +35,7 @@ export const Exchange: React.FunctionComponent = () => {
 
   let getData = async() => {
     try {
-      const symbolsResponse = await fetch("https://api.finage.co.uk/symbol-list/forex?apikey=API_KEY083WJXRCQA22TNOX4NX7RERCYGH1OJF6").then(data => data.json())
+      const symbolsResponse = await fetch("https://api.finage.co.uk/symbol-list/forex?apikey=API_KEY91HAZESKGWKCX7ZVVZWVKTONSFUF0O74").then(data => data.json())
       setData(symbolsResponse.symbols)
       const yesterdayData = moment().subtract(1, 'day').format("YYYY-MM-DD")
 
@@ -45,8 +45,8 @@ export const Exchange: React.FunctionComponent = () => {
       const pair: string = fromSelectSymbol.current + '' + toSelectSymbol.current
 
       try {
-        const priceYesterdayResponse = await fetch(`https://api.finage.co.uk/history/ticks/forex/${pair}/${yesterdayData}?limit=1&apiKey=API_KEY083WJXRCQA22TNOX4NX7RERCYGH1OJF6`).then(data => data.json())
-        const priceTodayResponse = await fetch(`https://api.finage.co.uk/last/forex/${pair}?apikey=API_KEY083WJXRCQA22TNOX4NX7RERCYGH1OJF6`).then(data => data.json())
+        const priceYesterdayResponse = await fetch(`https://api.finage.co.uk/history/ticks/forex/${pair}/${yesterdayData}?limit=1&apiKey=API_KEY91HAZESKGWKCX7ZVVZWVKTONSFUF0O74`).then(data => data.json())
+        const priceTodayResponse = await fetch(`https://api.finage.co.uk/last/forex/${pair}?apikey=API_KEY91HAZESKGWKCX7ZVVZWVKTONSFUF0O74`).then(data => data.json())
         
         priceYesterday = priceYesterdayResponse.ticks[0].b
         priceToday = priceTodayResponse.bid
